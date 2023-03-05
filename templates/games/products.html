@@ -1,69 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'games/interface.html' %}
+{%  load static %}
 
-<head>
+{% block custom_css %}
+    <link href="{% static '/vendor/css/products.css'%}" rel="stylesheet">
+{% endblock %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Store - Каталог</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="static/vendor/css/products.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+{% block content %}
     <div class="container">
-        <a class="navbar-brand" href="index.html">Store</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="products.html">Каталог <i class="fas fa-shopping-bag"></i> </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="users/login.html">Войти <i class="fas fa-sign-in-alt"></i></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user-circle"></i>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li>
-                            <a class="dropdown-item" href="users/profile.html">Профиль</a>
-                        </li>
-                        <li><a class="dropdown-item" href="orders/orders.html">Заказы</a></li>
-                        <li><a class="dropdown-item" href="#">Админ-панель</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">
-                                Выйти
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- Page Content -->
-<div class="container">
 
     <div class="row">
 
@@ -91,13 +34,13 @@
                 </ol>
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
-                        <img class="d-block img-fluid" src="vendor/img/slides/slide-1.jpg" alt="First slide">
+                        <img class="d-block img-fluid" src="{% static  '/vendor/img/slides/slide-1.jpg'%}" alt="First slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block img-fluid" src="vendor/img/slides/slide-2.jpg" alt="Second slide">
+                        <img class="d-block img-fluid" src="{% static '/vendor/img/slides/slide-2.jpg'%}" alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block img-fluid" src="vendor/img/slides/slide-3.jpg" alt="Third slide">
+                        <img class="d-block img-fluid" src="{% static '/vendor/img/slides/slide-3.jpg'%}" alt="Third slide">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -116,7 +59,7 @@
                     <div class="card h-100">
                         <a href="#">
                             <img class="card-img-top"
-                                 src="static/vendor/img/products/hogwarts.jpg"
+                                 src="{% static '/vendor/img/products/hogwarts.jpg'%}"
                                  alt="">
                         </a>
                         <div class="card-body">
@@ -127,7 +70,7 @@
                             <p class="card-text">Hogwarts Legacy — компьютерная игра в жанре action/RPG, разработанная американской студией Avalanche Software и изданная Warner Bros.</p>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Отправить в корзину</button>
+                            <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
                         </div>
                     </div>
                 </div>
@@ -136,19 +79,19 @@
                     <div class="card h-100">
                         <a href="#">
                             <img class="card-img-top"
-                                 src="vendor/img/products/Blue-jacket-The-North-Face.png" alt="">
+                                 src="{% static '/vendor/img/products/atomic.jpeg'%}" alt="">
                         </a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">Синяя куртка The North Face</a>
+                                <a href="#">Atomic Hearts</a>
                             </h4>
-                            <h5>23 725,00 руб.</h5>
+                            <h5>1 099,00 руб.</h5>
                             <p class="card-text">
-                                Гладкая ткань. Водонепроницаемое покрытие. Легкий и теплый пуховый наполнитель.
+                                ---
                             </p>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Отправить в корзину</button>
+                            <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
                         </div>
                     </div>
                 </div>
@@ -157,18 +100,18 @@
                     <div class="card h-100">
                         <a href="#">
                             <img class="card-img-top"
-                                 src="vendor/img/products/Brown-sports-oversized-top-ASOS-DESIGN.png"
+                                 src="{% static '/vendor/img/products/hi-fi-rush.jpg'%}"
                                  alt="">
                         </a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">Коричневый спортивный oversized-топ ASOS DESIGN</a>
+                                <a href="#">Hi-Fi Rush</a>
                             </h4>
-                            <h5>3 390,00 руб.</h5>
-                            <p class="card-text">Материал с плюшевой текстурой. Удобный и мягкий.</p>
+                            <h5>809,00 руб.</h5>
+                            <p class="card-text">---</p>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Отправить в корзину</button>
+                            <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
                         </div>
                     </div>
                 </div>
@@ -177,18 +120,18 @@
                     <div class="card h-100">
                         <a href="#">
                             <img class="card-img-top"
-                                 src="vendor/img/products/Black-Nike-Heritage-backpack.png"
+                                 src="{% static '/vendor/img/products/fifa23.jpg'%}"
                                  alt="">
                         </a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">Черный рюкзак Nike Heritage</a>
+                                <a href="#">FiFA EA_sports</a>
                             </h4>
                             <h5>2 340,00 руб.</h5>
-                            <p class="card-text">Плотная ткань. Легкий материал.</p>
+                            <p class="card-text">---</p>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Отправить в корзину</button>
+                            <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
                         </div>
                     </div>
                 </div>
@@ -197,18 +140,18 @@
                     <div class="card h-100">
                         <a href="#">
                             <img class="card-img-top"
-                                 src="vendor/img/products/Black-Dr-Martens-shoes.png"
+                                 src="{% static '/vendor/img/products/godofwar.jpg'%}"
                                  alt="">
                         </a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">Черные туфли на платформе с 3 парами люверсов Dr Martens 1461 Bex</a>
+                                <a href="#">God of War: Ragnarok</a>
                             </h4>
-                            <h5>13 590,00 руб.</h5>
-                            <p class="card-text">Гладкий кожаный верх. Натуральный материал.</p>
+                            <h5>1 090,00 руб.</h5>
+                            <p class="card-text">---</p>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Отправить в корзину</button>
+                            <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
                         </div>
                     </div>
                 </div>
@@ -217,18 +160,18 @@
                     <div class="card h-100">
                         <a href="#">
                             <img class="card-img-top"
-                                 src="vendor/img/products/Dark-blue-wide-leg-ASOs-DESIGN-trousers.png"
+                                 src="{% static '/vendor/img/products/CoD.jpeg'%}"
                                  alt="">
                         </a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">Темно-синие широкие строгие брюки ASOS DESIGN</a>
+                                <a href="#">Call of Duty: Modern Warfare 2</a>
                             </h4>
-                            <h5>2 890,00 руб.</h5>
-                            <p class="card-text">Легкая эластичная ткань сирсакер Фактурная ткань.</p>
+                            <h5>999,00 руб.</h5>
+                            <p class="card-text">---</p>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Отправить в корзину</button>
+                            <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
                         </div>
                     </div>
                 </div>
@@ -254,26 +197,27 @@
     </div>
 
 </div>
-<!-- /.container -->
+{% endblock %}
 
-<!-- Footer -->
-<footer class="py-5 bg-dark">
+{% block footer %}
+    <footer class="py-5 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Store 2022</p>
+        <p class="m-0 text-center text-white">Copyright &copy; game_store 2023</p>
     </div>
     <!-- /.container -->
 </footer>
+{% endblock %}
 
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
 
-<!-- FontAwesome script -->
-<script src="vendor/fontawesome/fontawesome-icons.js" crossorigin="anonymous"></script>
 
-</body>
 
-</html>
+
+
+
+
+
+
+
+
+
+
