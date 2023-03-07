@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
+from games.models import Category, Products
+
+
 # Create your views here.
 
 
@@ -8,4 +11,8 @@ def index(request):
 
 
 def products(request):
-    return render(request, "games/products.html")
+    context = {
+        'category': Category.objects.all(),
+        'products': Products.objects.all()
+    }
+    return render(request, "games/products.html", context)

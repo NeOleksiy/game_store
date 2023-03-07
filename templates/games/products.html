@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+<div class="container">
 
     <div class="row">
 
@@ -14,11 +14,9 @@
 
             <h1 class="my-4">Store</h1>
             <div class="list-group">
-                <a href="#" class="list-group-item">Новинки</a>
-                <a href="#" class="list-group-item">Все игры</a>
-                <a href="#" class="list-group-item">Игры года</a>
-                <a href="#" class="list-group-item">Скидки</a>
-                <a href="#" class="list-group-item">Подарки</a>
+                {% for categorys in category %}
+                    <a href="#" class="list-group-item">{{ categorys.category }}</a>
+                {% endfor %}
             </div>
 
         </div>
@@ -54,153 +52,35 @@
             </div>
 
             <div class="row">
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{% static '/vendor/img/products/hogwarts.jpg'%}"
-                                 alt="">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Hogwarts Legacy</a>
-                            </h4>
-                            <h7  class="text-left font-italic line-block">
-                                &#10004;Аренда<br>
-                                &#10004;Аккаунт<br>
-                                &#10004;Полноценная игра<br>
-                            </h7>
-                            <h5>От 1 090,00 руб.</h5>
-                            <p class="card-text">Hogwarts Legacy — компьютерная игра в жанре action/RPG, разработанная американской студией Avalanche Software и изданная Warner Bros.</p>
-                        </div>
-                        <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{% static '/vendor/img/products/atomic.jpeg'%}" alt="">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Atomic Hearts</a>
-                            </h4>
-                            <h5>От 1 099,00 руб.</h5>
-                            <h7  class="text-left font-italic line-block">
-                                &#10004;Аренда<br>
-                                &#10004;Полноценная игра<br>
-                            </h7>
-                            <p class="card-text">
-                                ---
-                            </p>
-                        </div>
-                        <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
+                 {% for product in products %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="#">
+                                <img class="card-img-top"
+                                     src="{{ product.image.url }}"
+                                     alt="">
+                            </a>
+                            <div class="card-body">
+                                <div class="b-container">
+                                    <h4 class="card-title">
+                                        <a href="#">{{ product.name }}</a>
+                                    </h4>
+                                </div>
+                                <h7  class="text-left font-italic line-block">
+                                    &#10004;Аренда<br>
+                                    &#10004;Аккаунт<br>
+                                    &#10004;Полноценная игра<br>
+                                </h7>
+                                <h5>{{ product.price }} RUB</h5>
+                                <p class="card-text">{{ product.description }}</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
 
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{% static '/vendor/img/products/hi-fi-rush.jpg'%}"
-                                 alt="">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Hi-Fi Rush</a>
-                            </h4>
-                            <h7  class="text-left font-italic line-block">
-                                &#10004; Аренда<br>
-                                &#10004; Полноценная игра<br>
-                            </h7>
-                            <h5>От 809,00 руб.</h5>
-                            <p class="card-text">---</p>
-                        </div>
-                        <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{% static '/vendor/img/products/fifa23.jpg'%}"
-                                 alt="">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">FiFA EA_sports</a>
-                            </h4>
-                            <h7  class="text-left font-italic line-block">
-                                &#10004; Аренда<br>
-                                &#10004; Аккаунт<br>
-                            </h7>
-                            <h5>От 2 340,00 руб.</h5>
-                            <p class="card-text">---</p>
-                        </div>
-                        <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{% static '/vendor/img/products/godofwar.jpg'%}"
-                                 alt="">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">God of War: Ragnarok</a>
-                            </h4>
-                            <h7  class="text-left font-italic line-block">
-                                &#10004; Аренда<br>
-                                &#10004; Аккаунт<br>
-                                &#10004; Полноценная игра<br>
-                            </h7>
-                            <h5>От 1 090,00 руб.</h5>
-                            <p class="card-text">---</p>
-                        </div>
-                        <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#">
-                            <img class="card-img-top border-box-sizing"
-                                 src="{% static '/vendor/img/products/CoD.jpeg'%}"
-                                 alt="">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Call of Duty: Modern Warfare 2</a>
-                            </h4>
-                            <h7  class="text-left font-italic line-block">
-                                &#10004; Аккаунт<br>
-                                &#10004; Полноценная игра<br>
-                            </h7>
-                            <h5>От 999,00 руб.</h5>
-                            <p class="card-text">---</p>
-                        </div>
-                        <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Перейти к покупке</button>
-                        </div>
-                    </div>
-                </div>
 
             </div>
 
@@ -223,6 +103,7 @@
     </div>
 
 </div>
+
 {% endblock %}
 
 {% block footer %}
@@ -234,8 +115,8 @@
 </footer>
 {% endblock %}
 
-
-
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script src="{% static '/vendor/js/popup.js'%}"></script>
 
 
 

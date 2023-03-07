@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 class Category(models.Model):
@@ -9,14 +10,30 @@ class Category(models.Model):
         return self.category
 
 
+class PurchaseMethod(models.Model):
+    purchase_method = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.purchase_method
+
+
 class Products(models.Model):
     name = models.CharField(max_length=128)
-    purchase_method = models.CharField(max_length=64)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
+    price = models.DecimalField(max_digits=9, decimal_places=2)
     account_details = models.TextField(null=True, blank=True)
-    rental_time = models.DateField(null=True, blank=True)
-    key = models.CharField(max_length=64)
+    rental_time = models.CharField(max_length=64, null=True, blank=True)
+    key = models.CharField(max_length=64, null=True, blank=True)
     description = models.TextField()
-    image = models.ImageField(upload_to='games_images')
-    category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='media')
+    category = models.ForeignKey(to=Category, on_delete=models.PROTECT)
+    purchase_method = models.ForeignKey(to=PurchaseMethod, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
+
+class Slider(models.Model):
+    image = models.ImageField(upload_to='media')
+
+    def __str__(self):
+        return "image"
