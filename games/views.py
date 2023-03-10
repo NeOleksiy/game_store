@@ -13,6 +13,7 @@ def index(request):
 def products(request):
     context = {
         'category': Category.objects.all(),
-        'products': Products.objects.all()
+        'products': Products.objects.all(),
+
     }
     return render(request, "games/products.html", context)

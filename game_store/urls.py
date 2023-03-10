@@ -22,8 +22,8 @@ from games.views import products,index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'),
-    path('products/',products, name='products'),
+    path('index/', index, name='index'),
+    path('',products, name='products'),
 ]
 
 if settings.DEBUG:
