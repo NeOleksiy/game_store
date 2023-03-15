@@ -1,5 +1,6 @@
 {% extends 'games/interface.html' %}
 {%  load static %}
+{% load bd_tags %}
 
 {% block custom_css %}
     <link href="{% static '/vendor/css/products.css'%}" rel="stylesheet">
@@ -53,6 +54,7 @@
 
             <div class="row">
                  {% for product in products %}
+                     {% get_purchaseMethod  as pur_method %}
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100">
                             <a href="">
@@ -89,8 +91,8 @@
                             </button>
                         </div>
                     <div class="modal-body">
-                        {% for product in products %}
-                                <button type="button" class="btn btn-primary " data-dismiss="modal">{{ product.purchase_method }}</button>
+                        {% for pur in pur_method  %}
+                                <button type="button" class="btn btn-primary " data-dismiss="modal">{{  pur }}</button>
                         {% endfor %}
                     </div>
                     <div class="modal-footer">

@@ -26,7 +26,9 @@ class Products(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='media')
     category = models.ForeignKey(to=Category, on_delete=models.PROTECT)
-    purchase_method = models.ForeignKey(to=PurchaseMethod, on_delete=models.CASCADE)
+    purchaseMethod = models.ManyToManyField(to=PurchaseMethod,
+                                            through='purchase'
+                                            )
 
     def __str__(self):
         return self.name
@@ -37,3 +39,8 @@ class Slider(models.Model):
 
     def __str__(self):
         return "image"
+
+
+class purchase(models.Model):
+    name = models.ForeignKey(to=Products, on_delete=models.CASCADE)
+    purchaseMethod = models.ForeignKey(to=PurchaseMethod, on_delete=models.CASCADE)
