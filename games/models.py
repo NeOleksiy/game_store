@@ -44,3 +44,4 @@ class Slider(models.Model):
 class purchase(models.Model):
     name = models.ForeignKey(to=Products, on_delete=models.CASCADE)
     purchaseMethod = models.ForeignKey(to=PurchaseMethod, on_delete=models.CASCADE)
+

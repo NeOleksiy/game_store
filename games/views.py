@@ -1,6 +1,5 @@
 from django.shortcuts import render
 
-
 from games.models import Category, Products, purchase, PurchaseMethod
 
 
@@ -21,4 +20,6 @@ def products(request):
     return render(request, "games/products.html", context)
 
 
-
+def _purchaseMethod(name):
+    lst = Products.objects.get(name=name).purchaseMethod.all()
+    return lst
