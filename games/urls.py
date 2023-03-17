@@ -8,5 +8,6 @@ app_name = 'games'
 
 urlpatterns = [
     path('', products, name='index'),
+
 ]
 
