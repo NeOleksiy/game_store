@@ -3,6 +3,7 @@ from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from django.contrib import auth, messages
 from django.urls import reverse
 from users.models import Users
+from games.models import Basket
 
 
 # Create your views here.
@@ -17,7 +18,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user:
                 auth.login(request, user)
-                return HttpResponseRedirect(reverse('games:index'))
+                return HttpResponseRedirect(reverse('index'))
 
     else:
         form = UserLoginForm()
@@ -44,7 +45,7 @@ def registration(request):
 
 def profile(request):
     if request.method == "POST":
-        prof_form = UserProfileForm(data=request.POST, instance=request.user, files=request.FILES)
+        prof_form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
         if prof_form.is_valid():
             prof_form.save()
             return HttpResponseRedirect(reverse('users:profile'))
@@ -55,6 +56,8 @@ def profile(request):
 
     context = {
         'prof_form': prof_form,
+        'users': Users,
+        'baskets': Basket.objects.filter(user=request.user)
     }
     return render(request, 'users/profile.html', context)
 

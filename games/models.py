@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import Users
 
 
 # Create your models here.
@@ -45,3 +46,12 @@ class purchase(models.Model):
     name = models.ForeignKey(to=Products, on_delete=models.CASCADE)
     purchaseMethod = models.ForeignKey(to=PurchaseMethod, on_delete=models.CASCADE)
 
+
+class Basket(models.Model):
+    user = models.ForeignKey(to=Users, on_delete=models.CASCADE)
+    product = models.ForeignKey(to=Products, on_delete=models.CASCADE)
+    quantity = models.PositiveSmallIntegerField(default=0)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Пользователь : {self.user.username} | Продукт : {self.product.name}'

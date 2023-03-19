@@ -48,7 +48,7 @@ class UserProfileForm(UserChangeForm):
     last_name = forms.CharField(widget=forms.TextInput(attrs={
         "class": "form-control py-4"
     }))
-    image = forms.ImageField(widget=forms.FileInput(attrs={
+    img = forms.ImageField(widget=forms.FileInput(attrs={
         "class": "custom-file-input"
     }), required=False)
     username = forms.CharField(widget=forms.TextInput(attrs={
@@ -58,4 +58,4 @@ class UserProfileForm(UserChangeForm):
 
     class Meta:
         model = Users
-        fields = ('first_name', 'last_name', 'image', 'username', 'email')
+        fields = ('first_name', 'last_name', 'img', 'username', 'email')

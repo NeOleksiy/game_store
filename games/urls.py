@@ -2,12 +2,12 @@
 from django.urls import path
 
 
-from games.views import products
+from games.views import index
 
 app_name = 'games'
 
 urlpatterns = [
-    path('', products, name='index'),
+    path('', index, name='index'),
 
 ]
 

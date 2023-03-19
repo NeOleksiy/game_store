@@ -77,7 +77,7 @@
                                 <p class="card-text">{{ product.description }}</p>
                             </div>
                             <div class="card-footer text-center">
-                                <button data-target="#show_modal" data-toggle="modal"  data-bs-whatever={{ product.name }} type="button" class="btn btn-outline-success" >Перейти к покупке</button>
+                                <a href="{% url 'basket_add' product.id %}" class="btn btn-outline-success" >Перейти к покупке</a>
                             </div>
                         </div>
                     </div>
