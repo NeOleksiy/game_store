@@ -10,6 +10,10 @@ def index(request):
     return render(request, "games/index.html")
 
 
+def game_page(request):
+    return render(request, "games/gamePage.html")
+
+
 def products(request):
     context = {
         'category': Category.objects.all(),
