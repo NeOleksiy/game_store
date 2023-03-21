@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
-
+from django.urls import reverse
 from games.models import Category, Products, purchase, PurchaseMethod, Basket
 
 
@@ -10,8 +10,11 @@ def index(request):
     return render(request, "games/index.html")
 
 
-def game_page(request):
-    return render(request, "games/gamePage.html")
+def game_page(request, product_id):
+    context = {
+        'product_page': Products.objects.get(id=product_id)
+    }
+    return render(request, "games/gamePage.html", context)
 
 
 def products(request):
@@ -38,3 +41,8 @@ def basket_add(request, product_id):
         temp_basket.first().quantity += 1
         temp_basket.save()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+# def game_page_open(request, product_id):
+#     product = Products.objects.get(id=product_id)
+#     return HttpResponseRedirect(reverse('games:game_page'))

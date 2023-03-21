@@ -1,45 +1,48 @@
 {% extends 'games/base.html' %}
 {% load static %}
+{% load bd_tags %}
 
 
 
 {% block content %}
-    <div class="container">
-        <h1>GAmes</h1>
-        <div class="row">
+    <div class="container py-md-5">
+        <div class="row py-md-5">
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-overlay" src="{% static 'vendor/img/products/hogwarts.jpg' %}" alt="Game image cap">
+                    <img class="card-img-top" src="{{ product_page.image_page.url }}" alt="Game image cap">
                 </div>
             </div>
+
             <div class="col-md-7">
-                <h1>GAmes</h1>
-                <button type="button" class="btn btn-primary btn-lg">Выберете метод покупки</button>
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+                {% get_purchaseMethod product_page.name  as pur_method %}
+                <h2 class="display-4">{{ product_page.name }}</h2>
+                <h4>Описание</h4>
+                <p>{{ product_page.description }}</p>
+                <h3>Выберете метод покупки:</h3>
+                <ul class="list-group list-group-flush">
+                    {% for purchase in pur_method %}
+                        <li class="list-group-item"><button type="button" class="btn btn-dark btn-lg ">{{ purchase }}</button></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card border-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body text-dark">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Дата релиза:</li>
+                            <li class="list-group-item">Разработчик: {{ product_page.developer }}</li>
+                            <li class="list-group-item">Издатель: {{ product_page.publisher }}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-                <div class="card-header">Header</div>
-                <div class="card-body text-dark">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
+            <div class="col-md-8">
+                <div class="embed-responsive embed-responsive-16by9 ">
+                    <iframe class="embed-responsive-item" src="{{ product_page.video_link }}" allowfullscreen></iframe>
                 </div>
             </div>
-        </div>
-        <div class="col-md-8">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <h3>Описание</h3>
-            <p>Опапапапапаврыарв</p>
         </div>
     </div>
 {% endblock %}

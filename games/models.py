@@ -14,9 +14,15 @@ class Category(models.Model):
 class Developer(models.Model):
     developer = models.CharField(max_length=156)
 
+    def __str__(self):
+        return self.developer
+
 
 class Publisher(models.Model):
     publisher = models.CharField(max_length=156)
+
+    def __str__(self):
+        return self.publisher
 
 
 class PurchaseMethod(models.Model):

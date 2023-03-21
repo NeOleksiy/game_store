@@ -8,7 +8,7 @@ app_name = 'games'
 
 urlpatterns = [
     path('', index, name='index'),
-    path('game_page/', game_page, name='game_page')
+    path('game_page/<int:product_id>', game_page, name='game_page')
 
 ]
 
