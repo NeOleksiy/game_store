@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from users.models import Users
 from games.models import Basket
@@ -43,6 +44,7 @@ def registration(request):
     return render(request, 'users/register.html', context)
 
 
+@login_required
 def profile(request):
     if request.method == "POST":
         prof_form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
@@ -62,10 +64,12 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
+@login_required
 def email_ver(request):
     return render(request, 'users/email_verification.html')
 
 
+@login_required
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('index'))

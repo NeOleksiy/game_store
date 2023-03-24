@@ -73,11 +73,11 @@
                                     &#10004;{{ puur }}<br>
                                     </h7>
                                 {% endfor %}
-                                <h5>{{ product.price }} RUB</h5>
+                                <h5>От {{ product.rental_price }} RUB</h5>
                                 <p class="card-text">{{ product.description }}</p>
                             </div>
                             <div class="card-footer text-center">
-                                <a href="{% url 'basket_add' product.id %}" class="btn btn-outline-success" >Перейти к покупке</a>
+                                <a href="" class="btn btn-outline-success" >Перейти к покупке</a>
                             </div>
                         </div>
                     </div>

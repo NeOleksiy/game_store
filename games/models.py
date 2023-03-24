@@ -65,14 +65,20 @@ class Slider(models.Model):
 class purchase(models.Model):
     name = models.ForeignKey(to=Products, on_delete=models.CASCADE)
     purchaseMethod = models.ForeignKey(to=PurchaseMethod, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+
+    def __str__(self):
+        return f'название: { self.name } | метод : {self.purchaseMethod}'
 
 
 class Basket(models.Model):
     user = models.ForeignKey(to=Users, on_delete=models.CASCADE)
     product = models.ForeignKey(to=Products, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=0)
-    purchaseMethod = models.ForeignKey(to=purchase, on_delete=models.CASCADE)
+    purchaseMethod = models.ForeignKey(to=PurchaseMethod, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'Пользователь : {self.user.username} | Продукт : {self.product.name}'
+
+

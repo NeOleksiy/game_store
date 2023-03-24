@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from games.models import Category, Products, purchase, PurchaseMethod, Basket
 
 
@@ -27,22 +28,26 @@ def products(request):
     return render(request, "games/products.html", context)
 
 
-def _purchaseMethod(name):
-    lst = Products.objects.get(name=name).purchaseMethod.all()
-    return lst
-
-
-def basket_add(request, product_id):
+@login_required
+def basket_add(request, product_id, purchase_id):
     product = Products.objects.get(id=product_id)
-    temp_basket = Basket.objects.filter(user=request.user, product=product)
+    purchase_method = PurchaseMethod.objects.get(id=purchase_id)
+    temp_basket = Basket.objects.filter(user=request.user, product=product, purchaseMethod=purchase_method)
     if not temp_basket.exists():
-        Basket.objects.create(user=request.user, product=product, quantity=1)
+        Basket.objects.create(user=request.user, product=product, purchaseMethod=purchase_method, quantity=1)
     else:
-        temp_basket.first().quantity += 1
-        temp_basket.save()
+        basket = temp_basket.first()
+        basket.quantity += 1
+        basket.save()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
-# def game_page_open(request, product_id):
-#     product = Products.objects.get(id=product_id)
-#     return HttpResponseRedirect(reverse('games:game_page'))
+@login_required
+def basket_delete(request, basket_id):
+    temp_basket = Basket.objects.get(user=request.user, id=basket_id)
+    if temp_basket.quantity > 1:
+        temp_basket.quantity -= 1
+        temp_basket.save()
+    else:
+        Basket.objects.get(user=request.user, id=basket_id).delete()
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])

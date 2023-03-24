@@ -26,7 +26,7 @@ urlpatterns = [
     path('', products, name='index'),
     path('games/', include('games.urls', namespace='games')),
     path('users/', include('users.urls', namespace='users')),
-    path('basket/add/<int:product_id>', basket_add, name='basket_add'),
+
     # path('game_page/<int:product_id>', game_page_open, name='game_page_open')
 ]
 

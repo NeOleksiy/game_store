@@ -132,3 +132,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.Users'
 
 DEFAULT_CHARSET = 'UTF-8'
+
+LOGIN_URL = 'users/login/'

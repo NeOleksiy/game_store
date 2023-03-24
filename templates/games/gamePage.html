@@ -21,7 +21,12 @@
                 <h3>Выберете метод покупки:</h3>
                 <ul class="list-group list-group-flush">
                     {% for purchase in pur_method %}
-                        <li class="list-group-item"><button type="button" class="btn btn-dark btn-lg ">{{ purchase }}</button></li>
+                        <li class="list-group-item"><a href="{% url 'games:basket_add' product_page.id purchase.id %}" type="button" class="btn btn-dark btn-lg ">{{ purchase }}</a>
+                            {% if purchase == 'Аренда' %} - {{ product_page.rental_price }}
+                            {% elif purchase == 'Аккаунт' %} - {{ product_page.account_price }}
+                            {% else %} - {{ product_page.full_game_price }}
+                            {% endif %}
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
