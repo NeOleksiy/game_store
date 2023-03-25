@@ -57,6 +57,7 @@ def profile(request):
         prof_form = UserProfileForm(instance=request.user)
 
     context = {
+        'null': 0,
         'prof_form': prof_form,
         'users': Users,
         'baskets': Basket.objects.filter(user=request.user)

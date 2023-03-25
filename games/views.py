@@ -22,7 +22,6 @@ def products(request):
     context = {
         'category': Category.objects.all(),
         'products': Products.objects.all(),
-        'baskets': Basket.objects.filter(user=request.user)
     }
 
     return render(request, "games/products.html", context)

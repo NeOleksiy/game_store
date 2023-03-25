@@ -34,12 +34,6 @@ class PurchaseMethod(models.Model):
 
 class Products(models.Model):
     name = models.CharField(max_length=128)
-    rental_price = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
-    account_price = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
-    full_game_price = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
-    account_details = models.TextField(null=True, blank=True)
-    rental_time = models.CharField(max_length=64, null=True, blank=True)
-    key = models.CharField(max_length=64, null=True, blank=True)
     description = models.TextField()
     image = models.ImageField(upload_to='media')
     image_page = models.ImageField(upload_to='page_photo')
@@ -65,7 +59,8 @@ class Slider(models.Model):
 class purchase(models.Model):
     name = models.ForeignKey(to=Products, on_delete=models.CASCADE)
     purchaseMethod = models.ForeignKey(to=PurchaseMethod, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    price = models.DecimalField(max_digits=9, decimal_places=2)
+    product_data = models.CharField(max_length=80)
 
     def __str__(self):
         return f'название: { self.name } | метод : {self.purchaseMethod}'

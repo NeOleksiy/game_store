@@ -73,7 +73,7 @@
                                     &#10004;{{ puur }}<br>
                                     </h7>
                                 {% endfor %}
-                                <h5>От {{ product.rental_price }} RUB</h5>
+                                <h5>От {% min_price product.id %} RUB</h5>
                                 <p class="card-text">{{ product.description }}</p>
                             </div>
                             <div class="card-footer text-center">
