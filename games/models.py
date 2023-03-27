@@ -38,6 +38,7 @@ class Products(models.Model):
     image = models.ImageField(upload_to='media')
     image_page = models.ImageField(upload_to='page_photo')
     video_link = models.TextField()
+    release = models.DateField()
     developer = models.ForeignKey(to=Developer, on_delete=models.CASCADE)
     publisher = models.ForeignKey(to=Publisher, on_delete=models.CASCADE)
     category = models.ForeignKey(to=Category, on_delete=models.PROTECT)

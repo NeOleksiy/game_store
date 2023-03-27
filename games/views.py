@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from games.models import Category, Products, purchase, PurchaseMethod, Basket
-
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -18,10 +18,17 @@ def game_page(request, product_id):
     return render(request, "games/gamePage.html", context)
 
 
-def products(request):
+def products(request, category_id=None, page=1):
+    if category_id:
+        categories_products = Products.objects.filter(category=category_id)
+    else:
+        categories_products = Products.objects.all()
+    per_page = 3
+    paginator = Paginator(categories_products, per_page)
+    product_paginator = paginator.page(page)
     context = {
         'category': Category.objects.all(),
-        'products': Products.objects.all(),
+        'products': product_paginator,
     }
 
     return render(request, "games/products.html", context)

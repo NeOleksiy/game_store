@@ -22,5 +22,7 @@ def get_sum_price(product_id, purchase_id, quantity):
 
 @register.simple_tag()
 def min_price(product_id):
-    id_method = PurchaseMethod.objects.all()[0].id
-    return purchase.objects.get(name=product_id, purchaseMethod=id_method).price
+    purchases = purchase.objects.filter(name=product_id)
+    if purchases:
+        return purchases.first().price
+    return "Нет в наличии"

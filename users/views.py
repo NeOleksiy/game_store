@@ -4,7 +4,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from users.models import Users
-from games.models import Basket
+from games.models import Basket, purchase
 
 
 # Create your views here.
@@ -55,12 +55,22 @@ def profile(request):
             print(prof_form.errors)
     else:
         prof_form = UserProfileForm(instance=request.user)
-
+    baskets = Basket.objects.filter(user=request.user)
+    quantity_product = lambda product_id, purchase_method_id: Basket.objects.filter(user=request.user,
+                                                                                    product=product_id,
+                                                                                    purchaseMethod=purchase_method_id).first().quantity
+    decimal = lambda product_id, purchase_id: purchase.objects.get(name=product_id,
+                                                                   purchaseMethod=purchase_id).price * quantity_product(
+        product_id, purchase_id)
+    total_sum = sum(decimal(basket.product, basket.purchaseMethod) for basket in baskets)
+    total_quantity = sum(basket.quantity for basket in baskets)
     context = {
         'null': 0,
         'prof_form': prof_form,
         'users': Users,
-        'baskets': Basket.objects.filter(user=request.user)
+        'baskets': Basket.objects.filter(user=request.user),
+        'total_sum': total_sum,
+        'total_quantity': total_quantity,
     }
     return render(request, 'users/profile.html', context)
 
