@@ -1,37 +1,34 @@
-from django.shortcuts import render, HttpResponseRedirect
-from django.urls import reverse
+from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from games.models import Category, Products, purchase, PurchaseMethod, Basket
-from django.core.paginator import Paginator
+from games.models import Category, Products, PurchaseMethod, Basket
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from common.views import TitleMixin
+
 
 # Create your views here.
 
+class GamesListView(TitleMixin, ListView):
+    model = Products
+    paginate_by = 9
+    template_name = 'games/products.html'
+    title = 'Game Store'
 
-def index(request):
-    return render(request, "games/index.html")
+    def get_queryset(self):
+        queryset = super(GamesListView, self).get_queryset()
+        category_id = self.kwargs.get('category_id')
+        return queryset.filter(category_id=category_id) if category_id else queryset
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(GamesListView, self).get_context_data()
+        context['category'] = Category.objects.all()
+        return context
 
 
-def game_page(request, product_id):
-    context = {
-        'product_page': Products.objects.get(id=product_id)
-    }
-    return render(request, "games/gamePage.html", context)
-
-
-def products(request, category_id=None, page=1):
-    if category_id:
-        categories_products = Products.objects.filter(category=category_id)
-    else:
-        categories_products = Products.objects.all()
-    per_page = 3
-    paginator = Paginator(categories_products, per_page)
-    product_paginator = paginator.page(page)
-    context = {
-        'category': Category.objects.all(),
-        'products': product_paginator,
-    }
-
-    return render(request, "games/products.html", context)
+class GamePageView(TitleMixin, DetailView):
+    model = Products
+    template_name = 'games/gamePage.html'
+    title = 'Game Store'
 
 
 @login_required

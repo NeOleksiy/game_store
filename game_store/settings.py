@@ -134,3 +134,7 @@ AUTH_USER_MODEL = 'users.Users'
 DEFAULT_CHARSET = 'UTF-8'
 
 LOGIN_URL = '/users/login/'
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'

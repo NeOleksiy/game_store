@@ -2,77 +2,69 @@ from django.shortcuts import render, HttpResponseRedirect
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from users.models import Users
 from games.models import Basket, purchase
+from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.auth.views import LoginView
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 # Create your views here.
 
+class UserLoginView(LoginView):
+    template_name = 'users/login.html'
+    form_class = UserLoginForm
 
-def login(request):
-    if request.method == "POST":
-        form = UserLoginForm(data=request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = auth.authenticate(username=username, password=password)
-            if user:
-                auth.login(request, user)
-                return HttpResponseRedirect(reverse('index'))
-
-    else:
-        form = UserLoginForm()
-    context = {
-        'form': form,
-    }
-    return render(request, 'users/login.html', context)
-
-
-def registration(request):
-    if request.method == "POST":
-        reg_form = UserRegistrationForm(data=request.POST)
-        if reg_form.is_valid():
-            reg_form.save()
-            messages.success(request, 'Вы успешно зарегистрировались')
-            return HttpResponseRedirect(reverse('users:login'))
-    else:
-        reg_form = UserRegistrationForm()
-    context = {
-        'reg_form': reg_form,
-    }
-    return render(request, 'users/register.html', context)
+# def login(request):
+#     if request.method == "POST":
+#         form = UserLoginForm(data=request.POST)
+#         if form.is_valid():
+#             username = request.POST['username']
+#             password = request.POST['password']
+#             user = auth.authenticate(username=username, password=password)
+#             if user:
+#                 auth.login(request, user)
+#                 return HttpResponseRedirect(reverse('products'))
+#
+#     else:
+#         form = UserLoginForm()
+#     context = {
+#         'form': form,
+#     }
+#     return render(request, 'users/login.html', context)
 
 
-@login_required
-def profile(request):
-    if request.method == "POST":
-        prof_form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
-        if prof_form.is_valid():
-            prof_form.save()
-            return HttpResponseRedirect(reverse('users:profile'))
-        else:
-            print(prof_form.errors)
-    else:
-        prof_form = UserProfileForm(instance=request.user)
-    baskets = Basket.objects.filter(user=request.user)
-    quantity_product = lambda product_id, purchase_method_id: Basket.objects.filter(user=request.user,
-                                                                                    product=product_id,
-                                                                                    purchaseMethod=purchase_method_id).first().quantity
-    decimal = lambda product_id, purchase_id: purchase.objects.get(name=product_id,
-                                                                   purchaseMethod=purchase_id).price * quantity_product(
-        product_id, purchase_id)
-    total_sum = sum(decimal(basket.product, basket.purchaseMethod) for basket in baskets)
-    total_quantity = sum(basket.quantity for basket in baskets)
-    context = {
-        'null': 0,
-        'prof_form': prof_form,
-        'users': Users,
-        'baskets': Basket.objects.filter(user=request.user),
-        'total_sum': total_sum,
-        'total_quantity': total_quantity,
-    }
-    return render(request, 'users/profile.html', context)
+class RegistrationView(SuccessMessageMixin, CreateView):
+    model = Users
+    template_name = 'users/register.html'
+    form_class = UserRegistrationForm
+    success_url = reverse_lazy('users:login')
+    SuccessMessageMixin = 'Вы успешно зарегестрированы'
+
+
+class ProfileView(UpdateView):
+    model = Users
+    template_name = 'users/profile.html'
+    form_class = UserProfileForm
+    success_url = reverse_lazy('users:profile')
+
+    def get_success_url(self):
+        return reverse_lazy('users:profile', args=(self.object.id,))
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data()
+        baskets = Basket.objects.filter(user=self.object)
+        quantity_product = lambda product_id, purchase_method_id: Basket.objects.filter(user=self.object,
+                                                                                        product=product_id,
+                                                                                        purchaseMethod=purchase_method_id).first().quantity
+        decimal = lambda product_id, purchase_id: purchase.objects.get(name=product_id,
+                                                                       purchaseMethod=purchase_id).price * quantity_product(
+            product_id, purchase_id)
+        context['total_sum'] = sum(decimal(basket.product, basket.purchaseMethod) for basket in baskets)
+        context['total_quantity'] = sum(basket.quantity for basket in baskets)
+        context['baskets'] = Basket.objects.filter(user=self.object)
+        return context
 
 
 @login_required
@@ -83,4 +75,4 @@ def email_ver(request):
 @login_required
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse(''))

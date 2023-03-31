@@ -19,15 +19,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 
-from games.views import products, basket_add
+from games.views import GamesListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', products, name='index'),
+    path('', GamesListView.as_view(), name='products'),
     path('games/', include('games.urls', namespace='games')),
     path('users/', include('users.urls', namespace='users')),
 
-    # path('game_page/<int:product_id>', game_page_open, name='game_page_open')
 ]
 
 if settings.DEBUG:
