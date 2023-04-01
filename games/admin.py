@@ -1,7 +1,7 @@
 from django.contrib import admin
 from games.models import Category, Products, PurchaseMethod, Slider, purchase, Publisher, Developer, Basket
 
-from users.models import Users
+from users.models import Users, EmailVerification
 
 
 # Register your models here.
@@ -16,3 +16,4 @@ admin.site.register(purchase)
 admin.site.register(Publisher)
 admin.site.register(Developer)
 admin.site.register(Basket)
+admin.site.register(EmailVerification)

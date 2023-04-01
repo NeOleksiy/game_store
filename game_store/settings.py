@@ -26,6 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DOMAIN_NAME = ' http://localhost:8000'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -138,3 +140,14 @@ LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/'
+
+#send mail
+
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST_USER = 'gameStore00@yandex.ru'
+EMAIL_HOST_PASSWORD = 'MyGameStore'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+
+

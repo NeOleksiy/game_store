@@ -3,8 +3,9 @@ from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
-from users.models import Users
+from users.models import Users, EmailVerification
 from games.models import Basket, purchase
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -15,24 +16,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
     form_class = UserLoginForm
-
-# def login(request):
-#     if request.method == "POST":
-#         form = UserLoginForm(data=request.POST)
-#         if form.is_valid():
-#             username = request.POST['username']
-#             password = request.POST['password']
-#             user = auth.authenticate(username=username, password=password)
-#             if user:
-#                 auth.login(request, user)
-#                 return HttpResponseRedirect(reverse('products'))
-#
-#     else:
-#         form = UserLoginForm()
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, 'users/login.html', context)
 
 
 class RegistrationView(SuccessMessageMixin, CreateView):
@@ -67,12 +50,16 @@ class ProfileView(UpdateView):
         return context
 
 
-@login_required
-def email_ver(request):
-    return render(request, 'users/email_verification.html')
+class EmailVerificationView(TemplateView):
+    template_name = 'users/email_verification.html'
 
-
-@login_required
-def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect(reverse(''))
+    def get(self, request, *args, **kwargs):
+        code = kwargs['code']
+        user = Users.objects.get(email=kwargs['email'])
+        email_verification = EmailVerification.objects.filter(code=code, user=user)
+        if email_verification.exists() and not email_verification.first().explore():
+            user.verificationStatus = True
+            user.save()
+            return super(EmailVerificationView, self).get(self, request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect(reverse('products'))
