@@ -1,1 +1,3 @@
-[{"model": "games.purchasemethod", "pk": 1, "fields": {"purchase_method": "└Ёхэфр"}}, {"model": "games.purchasemethod", "pk": 2, "fields": {"purchase_method": "└ъърєэЄ"}}, {"model": "games.purchasemethod", "pk": 3, "fields": {"purchase_method": "╧юыэюЎхээр  шуЁр"}}]
+[{"model": "games.purchasemethod", "pk": 1, "fields": {"purchase_method": "Аренда"}},
+  {"model": "games.purchasemethod", "pk": 3, "fields": {"purchase_method": "Аккаунт"}},
+  {"model": "games.purchasemethod", "pk": 4, "fields": {"purchase_method": "Полноценная игра"}}]

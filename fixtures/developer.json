@@ -1,0 +1,7 @@
+[{"model": "games.developer", "pk": 1, "fields": {"developer": "Avalanche Software"}},
+  {"model": "games.developer", "pk": 2, "fields": {"developer": "Mundfish"}},
+  {"model": "games.developer", "pk": 3, "fields": {"developer": "Infinity Ward"}},
+  {"model": "games.developer", "pk": 4, "fields": {"developer": "From Software"}},
+  {"model": "games.developer", "pk": 5, "fields": {"developer": "Tango Gameworks"}},
+  {"model": "games.developer", "pk": 6, "fields": {"developer": "EA Canada"}},
+  {"model": "games.developer", "pk": 7, "fields": {"developer": "Team SNEED"}}]

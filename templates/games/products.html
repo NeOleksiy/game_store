@@ -79,7 +79,7 @@
                                 {% else %}
                                     <h5>Нет в наличии</h5>
                                 {% endif %}
-                                <p class="card-text">{{ product.description }}</p>
+                                <p class="card-text">{{ product.description|truncatechars:100 }}</p>
                             </div>
                         </div>
                     </div>

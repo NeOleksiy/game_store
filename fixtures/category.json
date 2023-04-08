@@ -1,0 +1,8 @@
+[
+  {"model": "games.category", "pk": 3, "fields": {"category": "RPG"}},
+  {"model": "games.category", "pk": 4, "fields": {"category": "---"}},
+  {"model": "games.category", "pk": 5, "fields": {"category": "Souls like"}},
+  {"model": "games.category", "pk": 6, "fields": {"category": "---"}},
+  {"model": "games.category", "pk": 7, "fields": {"category": "---"}},
+  {"model": "games.category", "pk": 8, "fields": {"category": "---"}}
+]

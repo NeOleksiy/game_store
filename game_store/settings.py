@@ -151,3 +151,8 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 
 
+#tests
+
+# TEST_RUNNER = 'django_selenium.selenium_runner.SeleniumTestRunner'
+
+

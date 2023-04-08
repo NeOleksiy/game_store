@@ -64,7 +64,7 @@ class purchase(models.Model):
     product_data = models.CharField(max_length=80)
 
     def __str__(self):
-        return f'название: { self.name } | метод : {self.purchaseMethod}'
+        return f'название: {self.name} | метод : {self.purchaseMethod}'
 
 
 class Basket(models.Model):
@@ -76,5 +76,3 @@ class Basket(models.Model):
 
     def __str__(self):
         return f'Пользователь : {self.user.username} | Продукт : {self.product.name}'
-
-
