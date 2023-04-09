@@ -4,13 +4,14 @@ from games.models import Category, Products, PurchaseMethod, Basket
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from common.views import TitleMixin
+from django.core.cache import cache
 
 
 # Create your views here.
 
 class GamesListView(TitleMixin, ListView):
     model = Products
-    paginate_by = 9
+    paginate_by = 6
     template_name = 'games/products.html'
     title = 'Game Store'
 
@@ -29,6 +30,16 @@ class GamePageView(TitleMixin, DetailView):
     model = Products
     template_name = 'games/gamePage.html'
     title = 'Game Store'
+
+    def get_context_data(self, **kwargs):
+        context = super(GamePageView, self).get_context_data()
+        games_cache = cache.get('game')
+        if not games_cache:
+            context['object'] = context['object']
+            cache.set('game', context['object'], 30)
+        else:
+            context['object'] = games_cache
+        return context
 
 
 @login_required

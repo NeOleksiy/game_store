@@ -46,6 +46,9 @@ class Products(models.Model):
                                             through='purchase'
                                             )
 
+    class Meta:
+        ordering = ['-release']
+
     def __str__(self):
         return self.name
 

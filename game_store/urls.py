@@ -24,10 +24,12 @@ from games.views import GamesListView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', GamesListView.as_view(), name='products'),
+    path('page/<int:page>', GamesListView.as_view(), name='paginator'),
     path('games/', include('games.urls', namespace='games')),
     path('users/', include('users.urls', namespace='users')),
 
 ]
 
 if settings.DEBUG:
+    urlpatterns.append(path('__debug__/', include('debug_toolbar.urls')))
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

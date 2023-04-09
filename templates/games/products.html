@@ -1,5 +1,5 @@
 {% extends 'games/base.html' %}
-{%  load static %}
+{%  load static cache %}
 {% load bd_tags %}
 
 {% block custom_css %}
@@ -51,7 +51,6 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-
             <div class="row">
                  {% for product in object_list %}
                      {% get_purchaseMethod product.name  as pur_method %}
@@ -105,22 +104,21 @@
 
 
             </div>
-
-
+        {% if is_paginated %}
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
-                        <a class="page-link" href="{% if not page_obj.has_previous %}#{% else %}{% url 'games:paginator' page_obj.previous_page_number %}{% endif %}" tabindex="-1" aria-disabled="true">Previous</a>
+                        <a class="page-link" href="{% if not page_obj.has_previous %}#{% else %}{% url 'paginator' page_obj.previous_page_number %}{% endif %}" tabindex="-1" aria-disabled="true">Previous</a>
                     </li>
                 {% for page in paginator.page_range %}
-                    <li class="page-item"><a class="page-link" href="{% url 'games:paginator' page %}">{{ page }}</a></li>
+                    <li class="page-item"><a class="page-link" href="{% url 'paginator' page %}">{{ page }}</a></li>
                 {% endfor %}
                     <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
-                        <a class="page-link" href="{% if not page_obj.has_next %}#{% else %}{% url 'games:paginator' page_obj.next_page_number %}{% endif %}">Next</a>
+                        <a class="page-link" href="{% if not page_obj.has_next %}#{% else %}{% url 'paginator' page_obj.next_page_number %}{% endif %}">Next</a>
                     </li>
                 </ul>
             </nav>
-
+        {% endif %}
         </div>
 
     </div>
