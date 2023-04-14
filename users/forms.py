@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from django import forms
-from users.models import Users, EmailVerification
+from users.models import Users
 from users.tasks import send_email_verification
 
 

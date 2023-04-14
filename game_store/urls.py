@@ -18,7 +18,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
-
+from order.views import my_webhook_view
 from games.views import GamesListView
 
 urlpatterns = [
@@ -27,7 +27,8 @@ urlpatterns = [
     path('page/<int:page>', GamesListView.as_view(), name='paginator'),
     path('games/', include('games.urls', namespace='games')),
     path('users/', include('users.urls', namespace='users')),
-
+    path('orders/', include('order.urls', namespace='orders')),
+    path('webhook/', my_webhook_view, name='webhook'),
 ]
 
 if settings.DEBUG:

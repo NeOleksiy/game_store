@@ -14,13 +14,12 @@
             </div>
 
             <div class="col-md-7">
-                {% get_purchaseMethod object.name  as pur_method %}
                 <h2 class="display-4">{{ object.name }}</h2>
                 <h4>Описание</h4>
                 <p>{{ object.description }}</p>
                 <h3>Выберете метод покупки:</h3>
                 <ul class="list-group list-group-flush">
-                    {% for purchase in pur_method %}
+                    {% for purchase in object.purchaseMethod.all %}
                         <li class="list-group-item">
                             <a href="{% url 'games:basket_add' object.id purchase.id %}" type="button" class="btn btn-dark btn-lg ">{% get_price object.id purchase.id %} RUB</a>
                              ---- {{ purchase }}

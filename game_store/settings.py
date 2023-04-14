@@ -26,7 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-DOMAIN_NAME = ' http://localhost:8000'
+DOMAIN_NAME = 'http://127.0.0.1:8000'
 
 # Application definition
 
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'games',
-    'users'
+    'users',
+    'order'
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'games.contextprocessor.basket'
             ],
         },
     },
@@ -173,3 +175,10 @@ EMAIL_USE_SSL = True
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+
+
+#Stripe
+
+STRIPE_PUBLIC_KEY = 'pk_test_51MwXLZLctzEoTfKHJHMrhWF82Lr137OdbxuxzWpY6jwT6Gx48rDBmBSSFsz3TfLuhhHKRVAkS0IScW78zJekzP6m00dIHWR34B'
+STRIPE_SECRET_KEY = 'sk_test_51MwXLZLctzEoTfKH56DbI2J9ssPxVzbg33TCa6B1vNnibsMIJYeu5VPYKFFAMnW7Z7CxgIFOvGxc3nzvtmnf16Db00niovrcmt'
+STRIPE_WEBHOOK_SECRET = 'whsec_50c2bd17787dcdbcd1476397ff781cc996d7d6ce1b9724af605cc6ccbd00fdcd'

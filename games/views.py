@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from games.models import Category, Products, PurchaseMethod, Basket
@@ -16,7 +17,9 @@ class GamesListView(TitleMixin, ListView):
     title = 'Game Store'
 
     def get_queryset(self):
-        queryset = super(GamesListView, self).get_queryset()
+        queryset = super(GamesListView, self).get_queryset().prefetch_related(
+            Prefetch('purchaseMethod', queryset=PurchaseMethod.objects.all().only('purchase_method'))
+        ).only('pk', 'image', 'description', 'name')
         category_id = self.kwargs.get('category_id')
         return queryset.filter(category_id=category_id) if category_id else queryset
 
@@ -40,6 +43,11 @@ class GamePageView(TitleMixin, DetailView):
         else:
             context['object'] = games_cache
         return context
+
+    def get_queryset(self):
+        return super(GamePageView, self).get_queryset().prefetch_related(
+            Prefetch('purchaseMethod', queryset=PurchaseMethod.objects.all().only('purchase_method'))
+        )
 
 
 @login_required

@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 from django.core.mail import send_mail
 from django.utils import timezone
-from datetime import timedelta
 from django.conf import settings
 
 
@@ -31,7 +30,7 @@ class EmailVerification(models.Model):
         )
         send_mail(
             subject=subject,
-            message=verification_link,
+            message=message,
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[self.user.email],
             fail_silently=False,
