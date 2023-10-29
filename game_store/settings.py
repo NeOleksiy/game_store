@@ -11,6 +11,16 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
+
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w(ux1c#qbi_b(b)%&ei4rsj-z2x32n)ab^&eg4x@5e#li^f0kq'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,19 +96,19 @@ WSGI_APPLICATION = 'game_store.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'game_store_db',
-        'USER': 'store_admin',
-        'PASSWORD': '12345',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env("DATABASE_NAME"),
+        'USER': env("DATABASE_USER"),
+        'PASSWORD': env("DATABASE_PASSWORD"),
+        'HOST': env("DATABASE_HOST"),
+        'PORT': env("DATABASE_PORT"),
     }
 }
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379',
+        'LOCATION': env("REDIS_LOCATION"),
     }
 }
 
@@ -161,9 +171,9 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_HOST_USER = 'gameStore00@yandex.ru'
-EMAIL_HOST_PASSWORD = 'MyGameStore'
-EMAIL_PORT = 465
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = env("EMAIL_PORT")
 EMAIL_USE_SSL = True
 
 
@@ -173,12 +183,12 @@ EMAIL_USE_SSL = True
 
 # Celery
 
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CELERY_BROKER_URL = env("REDIS_LOCATION")
+CELERY_RESULT_BACKEND = env("REDIS_LOCATION")
 
 
 #Stripe
 
-STRIPE_PUBLIC_KEY = 'pk_test_51MwXLZLctzEoTfKHJHMrhWF82Lr137OdbxuxzWpY6jwT6Gx48rDBmBSSFsz3TfLuhhHKRVAkS0IScW78zJekzP6m00dIHWR34B'
-STRIPE_SECRET_KEY = 'sk_test_51MwXLZLctzEoTfKH56DbI2J9ssPxVzbg33TCa6B1vNnibsMIJYeu5VPYKFFAMnW7Z7CxgIFOvGxc3nzvtmnf16Db00niovrcmt'
-STRIPE_WEBHOOK_SECRET = 'whsec_50c2bd17787dcdbcd1476397ff781cc996d7d6ce1b9724af605cc6ccbd00fdcd'
+STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET")

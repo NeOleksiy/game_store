@@ -29,6 +29,9 @@ class PurchaseMethod(models.Model):
     purchase_method = models.CharField(max_length=64)
     timeframe = models.IntegerField(default=500)
 
+    class Meta:
+        ordering = ['purchase_method']
+
     def __str__(self):
         return self.purchase_method
 
